@@ -25,7 +25,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/products"><%= @user_id %> <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort <span class="caret"></span></a>
@@ -50,8 +50,8 @@
       <%= form_tag '/products', method: :get, class: "navbar-form navbar-left" do %>
        <div class="form-group">
           <%= text_field_tag :search_content, '' , class: "form-control", placeholder: "Enter your search term" %>
-          <%= submit_tag 'Search for an item', class: "btn btn-default" %>
         </div>
+          <%= submit_tag 'Search for an item', class: "btn btn-default" %>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
