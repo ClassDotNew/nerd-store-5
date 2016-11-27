@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :supplier
+  has_many :orders
   def discount_message
     if price.to_f < 3
       message = "Discount Item!"

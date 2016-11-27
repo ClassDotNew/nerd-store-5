@@ -1,5 +1,5 @@
   <section>
-    <div class="row">    
+    <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
         <div class="product_single">
             <h2><%= @product.name %></h2>
@@ -11,4 +11,14 @@
         </div>
       </div>
     </div>
+
+    <%= form_tag "/orders", method: :post do %>
+      <%= label_tag :quantity %>
+      <%= text_field_tag :quantity %>
+      <p>enter the last digit in your url here</p>
+      <%= label_tag :product_id %>
+      <%= text_field_tag :product_id %>
+      <%= submit_tag "Buy this now!" %>
+
+    <% end %>
   </section>
