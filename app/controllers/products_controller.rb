@@ -1,17 +1,17 @@
 class ProductsController < ApplicationController
   def index
-    @user_id = session[:user_id]
-    if session[:count] == nil
-      session[:count] = 0
-    end
-    session[:count] += 1
-    @count = session[:count]
-    if params["sort_attribute"] && params["order"]
-      @products = Product.order(params["sort_attribute"] => params["order"])
-    elsif params["cheap_stuff"]
-      @products = Product.where("price < ?", '5')
-    elsif params["search_content"]
-        @products = Product.where("name LIKE ?", "%#{params['search_content']}%")
+    # if params["sort_attribute"] && params["order"]
+    #   @products = Product.order(params["sort_attribute"] => params["order"])
+    # elsif params["cheap_stuff"]
+    #   @products = Product.where("price < ?", '5')
+    # elsif params["search_content"]
+    #     @products = Product.where("name LIKE ?", "%#{params['search_content']}%")
+    # else
+    # end
+    if params[:category]
+      category_name = params[:category]
+      category = Category.find_by(name: category_name)
+      @products = category.products
     else
       @products = Product.all
     end
@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+
     if params["id"] == 'random'
       @product = Product.all.sample
     else

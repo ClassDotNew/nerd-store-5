@@ -6,19 +6,22 @@
             <p>Price: <%= @product.price %></p>
             <img src="<%= @product.image %>" alt="<%= @product.name %>" class="img-responsive">
             <p>Description: <%= @product.description %></p>
+            <p>Categories:</p>
+            <% @product.categories.each do |category| %>
+                <p><%= category.name %></p>
+            <% end %>
             <%= link_to "Edit", "/products/#{@product.id}/edit", class: "btn btn-success" %>
             <%= link_to "Delete", "/products/#{@product.id}", {method: :delete, class: "btn btn-danger" }%>
         </div>
       </div>
     </div>
 
-    <%= form_tag "/orders", method: :post do %>
+    <%= form_tag "/carted_products", method: :post do %>
       <%= label_tag :quantity %>
       <%= text_field_tag :quantity %>
-      <p>enter the last digit in your url here</p>
-      <%= label_tag :product_id %>
-      <%= text_field_tag :product_id %>
-      <%= submit_tag "Buy this now!" %>
+      <%= hidden_field_tag :product_id, @product.id %>
+
+      <%= submit_tag "Add to cart" %>
 
     <% end %>
   </section>

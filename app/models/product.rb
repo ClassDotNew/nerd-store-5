@@ -1,6 +1,12 @@
 class Product < ActiveRecord::Base
+  has_many :carted_products
+  has_many :orders, through: :carted_products
+
+
   belongs_to :supplier
-  has_many :orders
+  has_many :categorized_products
+  has_many :categories, through: :categorized_products
+
   def discount_message
     if price.to_f < 3
       message = "Discount Item!"
