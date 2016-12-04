@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_admin!, only: [:create, :update, :destroy, :new, :edit]
+
   def index
     # if params["sort_attribute"] && params["order"]
     #   @products = Product.order(params["sort_attribute"] => params["order"])
@@ -18,10 +20,11 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @product = Product.new
   end
 
   def create
-    @product = Product.create(
+    @product = Product.new(
       name: params[:name],
       description: params[:description],
       image: params[:image],
@@ -29,12 +32,16 @@ class ProductsController < ApplicationController
       supplier_id: params["supplier"]["supplier_id"]
       )
 
-    flash[:success] = "Product Created"
-    redirect_to "/products/#{@product.id}"
+    if @product.save # happy
+      flash[:success] = "Product Created"
+      redirect_to "/products/#{@product.id}"
+    else
+      render 'new.html.erb'
+    end
+
   end
 
   def show
-
     if params["id"] == 'random'
       @product = Product.all.sample
     else
@@ -48,18 +55,23 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find_by(id: params[:id])
-    @product.update(
+    if @product.update(
       name: params[:name],
       description: params[:description],
       image: params[:image],
-      price: params[:price]
+      price: params[:price],
+      supplier_id: params["supplier"]["supplier_id"]
       )
+      flash[:success] = "Product Updated"
+      redirect_to "/products/#{@product.id}"
+    else
+      render 'edit.html.erb'
+    end
 
-    flash[:success] = "Product Updated"
-    redirect_to "/products/#{@product.id}"
   end
 
   def destroy
+
     @product = Product.find_by(id: params[:id])
     @product.destroy
 

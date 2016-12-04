@@ -4,33 +4,8 @@
           <div class="product_single">
             <h1>Create a new nerdy product:</h1>
 
-            <%= form_tag '/products', method: :post do %>
+                <%= render 'form.html.erb', message: "Process New Nerdiness", url: "/products", form_method: :post  %>
 
-              <div>
-                <%= label_tag :name %>
-                <%= text_field_tag :name %>
-              </div>
-
-              <div>
-                <%= label_tag :price %>
-                <%= text_field_tag :price %>
-              </div>
-
-              <div>
-                <%= label_tag :image %>
-                <%= text_field_tag :image %>
-              </div>
-
-              <div>
-                <%= label_tag :description %>
-                <%= text_field_tag :description %>
-              </div>
-
-              <div><%= collection_select :supplier, :supplier_id, Supplier.all, :id, :name %>
-</div>
-
-              <%= submit_tag "Process New Nerdiness" %>
-            <% end %>
           </div>
         </div>
       </div>

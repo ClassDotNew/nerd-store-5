@@ -6,8 +6,10 @@ class Order < ApplicationRecord
   def calculated_subtotal
     subtotal = 0
     carted_products.each do |carted_product|
-      subtotal += carted_product.quantity * carted_product.product.price.to_i
+      subtotal += carted_product.quantity * carted_product.product.price
     end
+    p 'here is the subtotal'
+    p subtotal
     subtotal
   end
 

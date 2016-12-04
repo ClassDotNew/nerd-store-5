@@ -1,11 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   def create
-    # calculated_subtotal = 0
-    # carted_products.each do |carted_product|
-    #   calculated_subtotal += carted_product.product.price.to_i * carted_product.quantity
-    # end
-    # calculated_tax = calculated_subtotal * 0.09
-    # calculated_total = calculated_tax + calculated_subtotal
     carted_products = current_user.carted_products.where(status: "carted")
 
     order1 = Order.new(
@@ -24,7 +19,11 @@ class OrdersController < ApplicationController
   end
 
   def show
+    # unless you made this order go away
+    # user id from the order to the current user id
     @order = Order.find(params[:id])
-    render 'show.html.erb'
+    unless current_user.id == @order.user_id || current_user.admin
+      redirect_to "/products"
+    end
   end
 end

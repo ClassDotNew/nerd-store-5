@@ -1,9 +1,13 @@
 class Product < ActiveRecord::Base
   has_many :carted_products
   has_many :orders, through: :carted_products
+  validates :name, presence: true
+  validates :price, :numericality => {:greater_than => 0, :less_than => 1000}
 
 
-  belongs_to :supplier
+
+  belongs_to :supplier, optional: true
+  belongs_to :user, optional: true
   has_many :categorized_products
   has_many :categories, through: :categorized_products
 
