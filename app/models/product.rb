@@ -1,8 +1,8 @@
 class Product < ActiveRecord::Base
   has_many :carted_products
   has_many :orders, through: :carted_products
-  validates :name, presence: true
-  validates :price, :numericality => {:greater_than => 0, :less_than => 1000}
+  # validates :name, presence: true
+  # validates :price, :numericality => {:greater_than => 0, :less_than => 1000}
 
 
 
