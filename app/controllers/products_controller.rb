@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
       supplier_id: params["supplier"]["supplier_id"]
       )
 
-    if @product.save # happy
+    if @product.save
       flash[:success] = "Product Created"
       redirect_to "/products/#{@product.id}"
     else
