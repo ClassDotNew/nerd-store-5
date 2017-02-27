@@ -12,8 +12,25 @@
 
 
 <%= form_tag url, method: form_method do %>
+<% array_of_hashes = [
+  {"key1" => "value1"}, %>
+  <% {"key2" => "value2"}, %>
+  <% {"final_key" => "final_value"} %>
+  <% ] %>
+<%= array_of_hashes %>
 
-<div>
+
+
+  <div>
+  <% array_of_hashes.each do |hash| %>
+    <% hash.each do |key,value| %>
+      <input class="test" type="hidden" name="the_values[<%= key %>]" value="<%= value %>">
+    <% end %>
+  <% end %>
+  </div>
+
+
+  <div>
     <%= label_tag :name %>
     <%= text_field_tag :name, @product.name %>
   </div>
